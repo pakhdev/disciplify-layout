@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disciplify dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="dashboard">
+    <div class="left-part">
+        <div class="new-task">
+            <div class="new-task__header">New task</div>
+            <div class="new-task__slogan">Design tomorrow now</div>
+            <div class="new-task__form">
+                <div class="new-task__two-columns-inverted">
+                    <input type="text" class="input-text" placeholder="Task name">
+                    <div class="new-task__create-button button">Create</div>
+                </div>
+                <div class="new-task__two-columns">
+                    <div class="new-task__input-label">Categories:</div>
+                    <div class="new-task__input-container">
+                        <div class="input-multi-select">
+                            <div class="input-multi-select__selected">Health</div>
+                            <div class="input-multi-select__add-button">Select category</div>
+                        </div>
+                    </div>
+                    <div class="new-task__input-label">Schedule for:</div>
+                    <div class="new-task__input-container">
+                        <div class="input-option-selector">
+                            <div class="input-option-selector__selected">Today</div>
+                            <div class="input-option-selector__option"><a>Tomorrow</a></div>
+                            <div class="input-option-selector__option"><a>Date</a></div>
+                            <div class="input-option-selector__option"><a>Recurring</a></div>
+                        </div>
+                    </div>
+                    <div class="new-task__input-label">Task type:</div>
+                    <div class="new-task__input-container">
+                        <div class="input-option-selector">
+                            <div class="input-option-selector__selected">To do</div>
+                            <div class="input-option-selector__option"><a>To avoid</a></div>
+                        </div>
+                    </div>
+                    <div class="new-task__input-label">Difficulty:</div>
+                    <div class="new-task__input-container">
+                        <div class="input-option-selector">
+                            <div class="input-option-selector__selected">Easy</div>
+                            <div class="input-option-selector__option">Normal</div>
+                            <div class="input-option-selector__option">Hard</div>
+                            <div class="input-option-selector__option">Nightmare</div>
+                        </div>
+                    </div>
+                    <div class="new-task__input-label">Is optional:</div>
+                    <div class="new-task__input-container">
+                        <div class="input-option-selector">
+                            <div class="input-option-selector__selected">False</div>
+                            <div class="input-option-selector__option"><a>True</a></div>
+                        </div>
+                    </div>
+                    <div class="new-task__input-label">Times per day:</div>
+                    <div class="new-task__input-container">
+                        <input type="number" class="input-number" value="1" max="50">
+                    </div>
+                    <div class="new-task__input-label">Assign date</div>
+                    <div class="new-task__input-container">
+                        <input type="text" class="input-text" value="01/01/2030" placeholder="Date">
+                    </div>
+                    <div class="new-task__input-label">Repeat every:</div>
+                    <div class="new-task__input-container">
+                        <input type="number" class="input-number" value="1" max="365">
+                        <span class="text-after-input"></span>
+                    </div>
+                    <div class="new-task__input-label">Allowed days:</div>
+                    <div class="new-task__input-container">
+                        <div class="input-option-selector--multi">
+                            <div class="input-option-selector__selected--multi">Mon</div>
+                            <div class="input-option-selector__selected--multi">Tue</div>
+                            <div class="input-option-selector__selected--multi">Wed</div>
+                            <div class="input-option-selector__selected--multi">Thy</div>
+                            <div class="input-option-selector__selected--multi">Fri</div>
+                            <div class="input-option-selector__option"><a>Sat</a></div>
+                            <div class="input-option-selector__option"><a>Sun</a></div>
+                        </div>
+                    </div>
+                    <div class="new-task__input-label">On restricted days:</div>
+                    <div class="new-task__input-container">
+                        <div class="input-option-selector">
+                            <div class="input-option-selector__selected">Next allowed day</div>
+                            <div class="input-option-selector__option"><a>Previous allowed day</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="charts">
+            <div class="chart">
+                <div class="chart__header">
+                    Daily Average
+                </div>
+                <div class="chart__options">
+                    <a class="chart__active-option">Percentage</a>
+                    <a>Points</a>
+                </div>
+                <div class="chart__content"></div>
+            </div>
+            <div class="chart">
+                <div class="chart__header">
+                    Weekly Average
+                </div>
+                <div class="chart__options">
+                    <a class="chart__active-option">Percentage</a>
+                    <a>Points</a>
+                </div>
+                <div class="chart__content"></div>
+            </div>
+            <div class="chart">
+                <div class="chart__header">
+                    Monthly Average
+                </div>
+                <div class="chart__options">
+                    <a class="chart__active-option">Percentage</a>
+                    <a>Points</a>
+                </div>
+                <div class="chart__content"></div>
+            </div>
+        </div>
+    </div>
+    <div class="main-part">
+        <div class="logo">
+            <div class="logo__name">Disciplify</div>
+            <div class="logo__slogan">/Discipline unlocked</div>
+        </div>
+        <div class="todays-progress">
+            <div class="todays-progress__header">Today's progress</div>
+            <div class="todays-progress__section">
+                <div class="todays-progress__max-percentage">100%</div>
+                <div class="todays-progress__progress">
+                    <div class="progress-bar">
+                        <div class="progress-bar--filled-beige" style="width: 76%">
+                            76%
+                        </div>
+                    </div>
+                </div>
+                <div class="todays-progress__title">mandatory tasks</div>
+            </div>
+            <div class="todays-progress__section">
+                <div class="todays-progress__max-percentage">+58%</div>
+                <div class="todays-progress__progress">
+                    <div class="progress-bar">
+                        <div class="progress-bar--filled-blue" style="width: 60%"></div>
+                    </div>
+                </div>
+                <div class="todays-progress__title">optional tasks</div>
+            </div>
+        </div>
+        <div class="toolbar-two-columns">
+            <div class="tasks-visualisation-selector">
+                Show only today's tasks
+            </div>
+            <div class="category-creation">
+                <input type="text" class="input-text" placeholder="Category name">
+                <div class="new-task__create-button button">Create</div>
+            </div>
+        </div>
+        <div class="content-two-columns">
+            <div class="tasks-section">
+                <div class="tasks-section__title">Health</div>
+                <div class="tasks-section__progress">
+                    <div class="todays-progress__progress">
+                        <div class="progress-bar">
+                            <div class="progress-bar--filled-light-blue" style="width: 76%">
+                                76%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section__task-list">
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--failed">Failed</div>
+                        <div class="tasks-section__task-title">Smoking (Fails: 2/15)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--failed">Failed</div>
+                        <div class="tasks-section__task-title">Energy drink (Fails: 0/2)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Medical appointment</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Brushing teeth (Successes 1/2)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Get a haircut</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tasks-section">
+                <div class="tasks-section__title">Career</div>
+                <div class="tasks-section__progress">
+                    <div class="todays-progress__progress">
+                        <div class="progress-bar">
+                            <div class="progress-bar--filled-light-blue" style="width: 76%">
+                                76%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section__task-list">
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--failed">Failed</div>
+                        <div class="tasks-section__task-title">Smoking (Fails: 2/15)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--failed">Failed</div>
+                        <div class="tasks-section__task-title">Energy drink (Fails: 0/2)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Medical appointment</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Brushing teeth (Successes 1/2)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Get a haircut</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tasks-section">
+                <div class="tasks-section__title">Money</div>
+                <div class="tasks-section__progress">
+                    <div class="todays-progress__progress">
+                        <div class="progress-bar">
+                            <div class="progress-bar--filled-light-blue" style="width: 76%">
+                                76%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section__task-list">
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--failed">Failed</div>
+                        <div class="tasks-section__task-title">Smoking (Fails: 2/15)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--failed">Failed</div>
+                        <div class="tasks-section__task-title">Energy drink (Fails: 0/2)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Medical appointment</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Brushing teeth (Successes 1/2)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Get a haircut</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tasks-section">
+                <div class="tasks-section__title">Family</div>
+                <div class="tasks-section__progress">
+                    <div class="todays-progress__progress">
+                        <div class="progress-bar">
+                            <div class="progress-bar--filled-light-blue" style="width: 76%">
+                                76%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tasks-section__task-list">
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--failed">Failed</div>
+                        <div class="tasks-section__task-title">Smoking (Fails: 2/15)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--failed">Failed</div>
+                        <div class="tasks-section__task-title">Energy drink (Fails: 0/2)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Medical appointment</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Brushing teeth (Successes 1/2)</div>
+                    </div>
+                    <div class="tasks-section__task">
+                        <div class="tasks-section__button--done">Done</div>
+                        <div class="tasks-section__task-title">Get a haircut</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
