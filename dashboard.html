@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Disciplify dashboard</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/chart.js"></script>
 </head>
 <body>
 <div class="dashboard">
@@ -101,7 +102,7 @@
                     <a class="chart__active-option">Percentage</a>
                     <a>Points</a>
                 </div>
-                <div class="chart__content"></div>
+                <div class="chart__content" id="daily-chart"></div>
             </div>
             <div class="chart">
                 <div class="chart__header">
@@ -111,7 +112,7 @@
                     <a class="chart__active-option">Percentage</a>
                     <a>Points</a>
                 </div>
-                <div class="chart__content"></div>
+                <div class="chart__content" id="weekly-chart"></div>
             </div>
             <div class="chart">
                 <div class="chart__header">
@@ -121,7 +122,7 @@
                     <a class="chart__active-option">Percentage</a>
                     <a>Points</a>
                 </div>
-                <div class="chart__content"></div>
+                <div class="chart__content" id="monthly-chart"></div>
             </div>
         </div>
     </div>
@@ -301,6 +302,32 @@
             </div>
         </div>
     </div>
+    <script>
+        const dailyChart = document.getElementById('daily-chart');
+        new Chart({
+            width: 400,
+            height: 130,
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            dataNumbers: [10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17],
+            container: dailyChart
+        })
+        const weeklyChart = document.getElementById('weekly-chart');
+        new Chart({
+            width: 400,
+            height: 130,
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            dataNumbers: [10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17],
+            container: weeklyChart
+        })
+        const monthlyChart = document.getElementById('monthly-chart');
+        new Chart({
+            width: 400,
+            height: 130,
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+            dataNumbers: [10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17],
+            container: monthlyChart
+        })
+    </script>
 </div>
 </body>
 </html>
