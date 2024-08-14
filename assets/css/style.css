@@ -65,6 +65,23 @@ body {
     padding: 0 10px;
     font-size: 10px;
 }
+.select-popup {
+    position: absolute;
+    color: var(--dark-blue);
+    border-radius: 0 0 5px 5px;
+    background-color: white;
+    border: 1px solid var(--bright-blue);
+    border-top: 0;
+    & a {
+        display: block;
+        text-align: center;
+        cursor: pointer;
+        padding: 5px 0 2px;
+    }
+    & a:hover {
+        background-color: var(--pale-blue);
+    }
+}
 .input-multi-select {
     background-color: var(--light-gray);
     border-radius: 5px;
@@ -96,6 +113,9 @@ body {
     color: white;
     background-color: var(--deep-teal);
     cursor: pointer;
+}
+.input-multi-select__add-button--active {
+    border-radius: 5px 5px 0 0;
 }
 .input-option-selector, .input-option-selector--multi {
     color: var(--dark-blue);
@@ -148,6 +168,72 @@ body {
     background-color: white;
     border-radius: 20px;
     display: flex;
+}
+
+/* ############### */
+/* Calendar */
+.calendar {
+    width: 180px;
+    border-radius: 5px;
+    border: 1px solid var(--bright-blue);
+    color: var(--bright-blue);
+    background-color: white;
+    font-size: 10px;
+    padding: 10px;
+    position: absolute;
+}
+.calendar__header {
+    text-transform: uppercase;
+    text-align: center;
+}
+.calendar__days {
+    margin-top: 5px;
+}
+.calendar__days-row {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    & div {
+        border: 1px solid var(--light-gray);
+        border-bottom: 0;
+        text-align: center;
+        color: var(--dark-blue);
+        padding-top: 2px;
+    }
+    & div:hover {
+        background-color: var(--light-blue);
+    }
+    & div:nth-child(1n) {
+        border-left: 0;
+    }
+    & div:nth-child(7n) {
+        border-right: 0;
+    }
+}
+.calendar__days-row:first-child {
+    & div {
+        border-top: 0;
+    }
+}
+.calendar__disabled-day {
+    color: var(--pale-gray) !important;
+}
+.calendar__toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    position: relative;
+}
+.calendar__button {
+    text-transform: uppercase;
+    font-size: 10px;
+    color: white;
+    background-color: var(--bright-blue);
+    padding: 4px 7px 2px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.calendar__button--pressed {
+    border-radius: 5px 5px 0 0;
 }
 
 /* ############### */
