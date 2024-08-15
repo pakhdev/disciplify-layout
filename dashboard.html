@@ -6,6 +6,7 @@
     <title>Disciplify dashboard</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/chart.js"></script>
+    <script src="assets/js/select-popup.js"></script>
 </head>
 <body>
 <div class="dashboard">
@@ -23,12 +24,12 @@
                     <div class="new-task__input-container">
                         <div class="input-multi-select" style="position: relative">
                             <div class="input-multi-select__selected">Health</div>
-                            <div class="input-multi-select__add-button input-multi-select__add-button--active">Select category</div>
-                            <div class="select-popup" style="width: 101px; top: 25px; left: 66px">
-                                <a>Career</a>
-                                <a>Money</a>
-                                <a>Family</a>
-                            </div>
+                            <select id="categories-select" class="input-multi-select__add-button input-multi-select__add-button--active" style="appearance: none; width: 101px; top: 25px; left: 66px">
+                                <option>Health</option>
+                                <option>Career</option>
+                                <option>Money</option>
+                                <option>Family</option>
+                            </select>
                         </div>
                     </div>
                     <div class="new-task__input-label">Schedule for:</div>
@@ -360,6 +361,8 @@
             dataNumbers: [10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17],
             container: monthlyChart
         })
+        const categoriesSelect = document.getElementById('categories-select');
+        new SelectPopup({ element: categoriesSelect, placeholder: 'Test'});
     </script>
 </div>
 </body>
