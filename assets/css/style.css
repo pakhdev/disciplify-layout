@@ -76,8 +76,7 @@ body {
         display: block;
         text-align: center;
         cursor: pointer;
-        /*padding: 5px 0 2px;*/
-        padding: 5px 50px;
+        padding: 5px 0 2px;
     }
     & a:hover {
         background-color: var(--pale-blue);

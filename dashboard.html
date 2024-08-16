@@ -24,7 +24,7 @@
                     <div class="new-task__input-container">
                         <div class="input-multi-select" style="position: relative">
                             <div class="input-multi-select__selected">Health</div>
-                            <select id="categories-select" class="input-multi-select__add-button input-multi-select__add-button--active" style="appearance: none; width: 101px; top: 25px; left: 66px">
+                            <select id="categories-select" class="input-multi-select__add-button" style="appearance: none;">
                                 <option>Health</option>
                                 <option>Career</option>
                                 <option>Money</option>
@@ -362,7 +362,7 @@
             container: monthlyChart
         })
         const categoriesSelect = document.getElementById('categories-select');
-        new SelectPopup({ element: categoriesSelect, placeholder: 'Test'});
+        new SelectPopup({ element: categoriesSelect, placeholder: 'Select Category', activeClass: 'input-multi-select__add-button--active' });
     </script>
 </div>
 </body>

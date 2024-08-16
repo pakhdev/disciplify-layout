@@ -1,93 +1,104 @@
 class SelectPopup {
 
-    popupClassName = 'select-popup';
-    popupElement = null;
+    popupClass = 'select-popup';
+    activeClass = null;
+    popup = null;
     options = [];
+    width = 0;
+    hasPlaceholder = false;
 
     constructor(args) {
-        const { element: targetElement, placeHolder } = args;
-        if (placeHolder)
-            this.setPlaceHolder(targetElement, placeHolder);
+        const {
+            element: targetElement,
+            placeholder,
+            activeClass,
+        } = args;
 
-        this.scanSelectOptions(targetElement);
-        this.handleSelectOnClick(targetElement);
+        if (placeholder) this.addPlaceholder(targetElement, placeholder);
+        if (activeClass) this.activeClass = activeClass;
+
+        this.extractOptions(targetElement);
+        this.setWidth(targetElement);
+        targetElement.style.width = this.width.toString()+'px';
+        this.bindClickHandler(targetElement);
     }
 
     createPopup(targetElement) {
         const popup = document.createElement('div');
-        popup.className = this.popupClassName;
-        this.createOptions(popup, targetElement);
+        popup.className = this.popupClass;
+        this.populatePopup(popup, targetElement);
 
-        const position = this.calculatePopupPosition(targetElement);
-        popup.style.top = position.top;
-        popup.style.left = position.left;
-
-        const width = this.findMaxWidth(targetElement, popup);
-        popup.style.width = width.toString()+'px';
-        targetElement.style.width = width.toString()+'px';
-
-        targetElement.parentNode.insertBefore(popup, targetElement.nextSibling);
-        this.popupElement = popup;
+        const { top, left} = this.calculatePosition(targetElement);
+        popup.style.top = top;
+        popup.style.left = left;
+        return popup;
     }
 
-    createOptions(popup, targetElement) {
-        for (const option of this.options) {
-            const optionElement = document.createElement('a');
-            optionElement.innerText = option.text;
-            optionElement.addEventListener('click', (event) => {
-                targetElement.value = option.value;
-                this.destroyPopup();
+    populatePopup(popup, selectElement) {
+        const startIdx = this.hasPlaceholder ? 1 : 0;
+        this.options.slice(startIdx).forEach(({ value, text }) => {
+            const optionLink = document.createElement('a');
+            optionLink.innerText = text;
+            optionLink.addEventListener('click', () => {
+                selectElement.value = value;
+                this.closePopup(selectElement);
             });
-            popup.appendChild(optionElement);
-        }
+            popup.appendChild(optionLink);
+        });
     }
 
-    setPlaceHolder(targetElement, text) {
+    addPlaceholder(targetElement, text) {
+        this.hasPlaceholder = true;
         const placeHolder = document.createElement('option');
         placeHolder.text = text;
         placeHolder.selected = true;
         targetElement.insertBefore(placeHolder, targetElement.firstChild);
     }
 
-    destroyPopup() {
-        this.popupElement.remove();
-        this.popupElement = null;
+    openPopup(targetElement) {
+        if (this.activeClass) targetElement.classList.add(this.activeClass);
+        this.popup = this.createPopup(targetElement);
+        this.popup.style.width = this.width.toString()+'px';
+        targetElement.parentNode.insertBefore(this.popup, targetElement.nextSibling);
     }
 
-    findMaxWidth(firstElement, secondElement) {
-        const firstElementWidth = firstElement.getBoundingClientRect().width;
-        const secondElementWidth = secondElement.getBoundingClientRect().width;
-        return firstElementWidth > secondElementWidth ? firstElementWidth : secondElementWidth;
+    closePopup(targetElement) {
+        if (this.activeClass) targetElement.classList.remove(this.activeClass);
+        this.popup.remove();
+        this.popup = null;
     }
 
-    calculatePopupPosition(targetElement) {
-        const targetElementRect = targetElement.getBoundingClientRect();
-        const parentRect = targetElement.parentElement.getBoundingClientRect();
-        const offsetTop = targetElementRect.bottom - parentRect.top;
-        const offsetLeft = targetElementRect.left - parentRect.left;
+    setWidth(selectElement) {
+        const tempPopup = this.createPopup(selectElement);
+        tempPopup.style.visibility = 'hidden';
+        selectElement.parentNode.insertBefore(tempPopup, selectElement.nextSibling);
+
+        const popupWidth = tempPopup.getBoundingClientRect().width;
+        const selectWidth = selectElement.getBoundingClientRect().width;
+        this.width = Math.max(popupWidth, selectWidth);
+        tempPopup.remove();
+    }
+
+    calculatePosition(targetElement) {
+        const { bottom, left } = targetElement.getBoundingClientRect();
+        const { top: parentTop, left: parentLeft } = targetElement.parentElement.getBoundingClientRect();
         return {
-            top: offsetTop.toString()+'px',
-            left: offsetLeft.toString()+'px'
+            top: bottom - parentTop.toString()+'px',
+            left: left - parentLeft.toString()+'px'
         };
     }
 
-    scanSelectOptions(targetElement) {
-        const options = targetElement.querySelectorAll('option');
-        options.forEach((option) => {
-            this.options.push({
-                value: option.value,
-                text: option.text
-            });
-        });
+    extractOptions(selectElement) {
+        this.options = Array.from(selectElement.querySelectorAll('option')).map(option => ({
+            value: option.value,
+            text: option.text
+        }));
     }
 
-    handleSelectOnClick(targetElement) {
-        targetElement.addEventListener('mousedown', (event) => {
+    bindClickHandler(selectElement) {
+        selectElement.addEventListener('mousedown', (event) => {
             event.preventDefault();
-            if (this.popupElement === null)
-                this.createPopup(targetElement);
-            else
-                this.destroyPopup();
+            this.popup ? this.closePopup(selectElement) : this.openPopup(selectElement);
         });
     }
 }
