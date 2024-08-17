@@ -210,6 +210,10 @@ body {
     & div:nth-child(7n) {
         border-right: 0;
     }
+    & a {
+        cursor: pointer;
+        padding: 0 3px;
+    }
 }
 .calendar__days-row:first-child {
     & div {

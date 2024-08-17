@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/chart.js"></script>
     <script src="assets/js/select-popup.js"></script>
+    <script src="assets/js/calendar.js"></script>
 </head>
 <body>
 <div class="dashboard">
@@ -70,35 +71,35 @@
                     </div>
                     <div class="new-task__input-label">Assign date</div>
                     <div class="new-task__input-container" style="position: relative">
-                        <input type="text" class="input-text" value="01/01/2030" placeholder="Date">
-                        <div class="calendar" style="top: 0; left: 155px">
-                            <div class="calendar__header">Select date</div>
-                            <div class="calendar__days">
-                                <div class="calendar__days-row">
-                                    <div></div><div></div><div></div><div></div><div class="calendar__disabled-day">1</div><div class="calendar__disabled-day">2</div><div>3</div>
-                                </div>
-                                <div class="calendar__days-row">
-                                    <div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
-                                </div>
-                                <div class="calendar__days-row">
-                                    <div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div>
-                                </div>
-                                <div class="calendar__days-row">
-                                    <div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div>
-                                </div>
-                                <div class="calendar__days-row">
-                                    <div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div>
-                                </div>
-                            </div>
-                            <div class="calendar__toolbar">
-                                <div class="calendar__button calendar__button--pressed">2024</div>
-                                <div class="select-popup" style="width: 35px; top: 22px; left: 0">
-                                    <a>2024</a>
-                                    <a>2025</a>
-                                </div>
-                                <div class="calendar__button">March</div>
-                            </div>
-                        </div>
+                        <input type="text" id="date" class="input-text" value="01/01/2030" placeholder="Date" readonly>
+<!--                        <div class="calendar" style="top: 0; left: 155px">-->
+<!--                            <div class="calendar__header">Select date</div>-->
+<!--                            <div class="calendar__days">-->
+<!--                                <div class="calendar__days-row">-->
+<!--                                    <div></div><div></div><div></div><div></div><div class="calendar__disabled-day">1</div><div class="calendar__disabled-day">2</div><div>3</div>-->
+<!--                                </div>-->
+<!--                                <div class="calendar__days-row">-->
+<!--                                    <div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>-->
+<!--                                </div>-->
+<!--                                <div class="calendar__days-row">-->
+<!--                                    <div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div>-->
+<!--                                </div>-->
+<!--                                <div class="calendar__days-row">-->
+<!--                                    <div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div>-->
+<!--                                </div>-->
+<!--                                <div class="calendar__days-row">-->
+<!--                                    <div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="calendar__toolbar">-->
+<!--                                <div class="calendar__button calendar__button&#45;&#45;pressed">2024</div>-->
+<!--                                <div class="select-popup" style="width: 35px; top: 22px; left: 0">-->
+<!--                                    <a>2024</a>-->
+<!--                                    <a>2025</a>-->
+<!--                                </div>-->
+<!--                                <div class="calendar__button">March</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                     <div class="new-task__input-label">Repeat every:</div>
                     <div class="new-task__input-container">
@@ -363,6 +364,8 @@
         })
         const categoriesSelect = document.getElementById('categories-select');
         new SelectPopup({ element: categoriesSelect, placeholder: 'Select Category', activeClass: 'input-multi-select__add-button--active' });
+        const dateInput = document.getElementById('date');
+        new Calendar(dateInput);
     </script>
 </div>
 </body>
