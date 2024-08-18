@@ -25,7 +25,13 @@
                     <div class="new-task__input-container">
                         <div class="input-multi-select" style="position: relative">
                             <div class="input-multi-select__selected">Health</div>
-                            <select id="categories-select" class="input-multi-select__add-button" style="appearance: none;">
+                            <select
+                                custom-select="true"
+                                custom-select-active-class="input-multi-select__add-button--active"
+                                custom-select-placeholder="Select Category"
+                                id="categories-select"
+                                class="input-multi-select__add-button"
+                                style="appearance: none;">
                                 <option>Health</option>
                                 <option>Career</option>
                                 <option>Money</option>
@@ -362,10 +368,9 @@
             dataNumbers: [10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17],
             container: monthlyChart
         })
-        const categoriesSelect = document.getElementById('categories-select');
-        new SelectPopup({ element: categoriesSelect, placeholder: 'Select Category', activeClass: 'input-multi-select__add-button--active' });
         const dateInput = document.getElementById('date');
         new Calendar(dateInput);
+        new CustomSelectManager();
     </script>
 </div>
 </body>

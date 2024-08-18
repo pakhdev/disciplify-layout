@@ -1,3 +1,33 @@
+// ================================
+//            USAGE OPTIONS
+// ================================
+//
+// 1. **Auto Assign**
+// --------------------------------
+// To automatically initialize custom select elements, follow these steps:
+//
+// - Add the following JavaScript code at the end of your HTML file.
+// new CustomSelectManager();
+//
+// - Include the following attributes in your <select> element:
+// <select
+//   custom-select="true"                                                // Required
+//   custom-select-active-class="input-multi-select__add-button--active" // Optional
+//   custom-select-placeholder="Select Category"                         // Optional
+// >
+//
+// 2. **Manual Assign**
+// --------------------------------
+// If you prefer to manually initialize a specific select element, use the following code:
+//
+// const categoriesSelect = document.getElementById('categories-select');
+// new SelectPopup({
+//   element: categoriesSelect,
+//   placeholder: 'Select Category',
+//   activeClass: 'input-multi-select__add-button--active'
+// });
+
+
 class SelectPopup {
 
     popupClass = 'select-popup';
@@ -19,7 +49,7 @@ class SelectPopup {
 
         this.extractOptions(targetElement);
         this.setWidth(targetElement);
-        targetElement.style.width = this.width.toString()+'px';
+        targetElement.style.width = this.width.toString() + 'px';
         this.bindClickHandler(targetElement);
     }
 
@@ -28,7 +58,7 @@ class SelectPopup {
         popup.className = this.popupClass;
         this.populatePopup(popup, targetElement);
 
-        const { top, left} = this.calculatePosition(targetElement);
+        const { top, left } = this.calculatePosition(targetElement);
         popup.style.top = top;
         popup.style.left = left;
         return popup;
@@ -58,7 +88,7 @@ class SelectPopup {
     openPopup(targetElement) {
         if (this.activeClass) targetElement.classList.add(this.activeClass);
         this.popup = this.createPopup(targetElement);
-        this.popup.style.width = this.width.toString()+'px';
+        this.popup.style.width = this.width.toString() + 'px';
         targetElement.parentNode.insertBefore(this.popup, targetElement.nextSibling);
     }
 
@@ -83,8 +113,8 @@ class SelectPopup {
         const { bottom, left } = targetElement.getBoundingClientRect();
         const { top: parentTop, left: parentLeft } = targetElement.parentElement.getBoundingClientRect();
         return {
-            top: bottom - parentTop.toString()+'px',
-            left: left - parentLeft.toString()+'px'
+            top: bottom - parentTop.toString() + 'px',
+            left: left - parentLeft.toString() + 'px'
         };
     }
 
@@ -100,5 +130,43 @@ class SelectPopup {
             event.preventDefault();
             this.popup ? this.closePopup(selectElement) : this.openPopup(selectElement);
         });
+    }
+}
+
+class CustomSelectManager {
+    constructor() {
+        this.observer = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    this.checkAndInitSelects();
+                }
+            }
+        });
+
+        this.observer.observe(document.body, { childList: true, subtree: true });
+        this.checkAndInitSelects();
+    }
+
+    checkAndInitSelects() {
+        const selectElements = document.querySelectorAll('select[custom-select="true"]:not(.initialized)');
+        selectElements.forEach(select => {
+            this.initSelectPopup(select);
+            select.classList.add('initialized');
+        });
+    }
+
+    initSelectPopup(element) {
+        const placeholder = element.getAttribute('custom-select-placeholder') || undefined;
+        const activeClass = element.getAttribute('custom-select-active-class') || undefined;
+
+        new SelectPopup({
+            element: element,
+            placeholder: placeholder,
+            activeClass: activeClass
+        });
+    }
+
+    disconnect() {
+        this.observer.disconnect();
     }
 }
