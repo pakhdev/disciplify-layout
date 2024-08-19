@@ -229,7 +229,7 @@ body {
     margin-top: 10px;
     position: relative;
 }
-.calendar__button {
+.calendar__select {
     text-transform: uppercase;
     font-size: 10px;
     color: white;
@@ -238,7 +238,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
-.calendar__button--pressed {
+.calendar__select--active {
     border-radius: 5px 5px 0 0;
 }
 

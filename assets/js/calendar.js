@@ -16,7 +16,7 @@ class Calendar {
     daysContainerClass = 'calendar__days';
     toolbarClass = 'calendar__toolbar';
     weekRowClass = 'calendar__days-row';
-    selectClass = 'calendar__button';
+    selectClass = 'calendar__select';
     disabledDayClass = 'calendar__disabled-day';
 
     calendar = null;
@@ -98,18 +98,23 @@ class Calendar {
         const toolbar = document.createElement('div');
         toolbar.className = this.toolbarClass;
 
-        this.monthSelect = document.createElement('select');
-        this.monthSelect.className = this.selectClass;
-        this.monthSelect.style.appearance = 'none';
+        this.monthSelect = this.createCustomSelect();
         toolbar.appendChild(this.monthSelect);
 
-        this.yearSelect = document.createElement('select');
-        this.yearSelect.className = this.selectClass;
-        this.yearSelect.style.appearance = 'none';
+        this.yearSelect = this.createCustomSelect();
         toolbar.appendChild(this.yearSelect);
 
         this.calendar.appendChild(toolbar);
         return this;
+    }
+
+    createCustomSelect() {
+        const customSelect = document.createElement('select');
+        customSelect.className = this.selectClass;
+        customSelect.style.appearance = 'none';
+        customSelect.setAttribute('custom-select', 'true');
+        customSelect.setAttribute('custom-select-active-class', 'calendar__select--active');
+        return customSelect;
     }
 
     populateDays() {

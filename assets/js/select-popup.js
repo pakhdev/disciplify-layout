@@ -47,6 +47,8 @@ class SelectPopup {
         if (placeholder) this.addPlaceholder(targetElement, placeholder);
         if (activeClass) this.activeClass = activeClass;
 
+        targetElement.style.appearance = 'none';
+
         this.extractOptions(targetElement);
         this.setWidth(targetElement);
         targetElement.style.width = this.width.toString() + 'px';
@@ -72,6 +74,7 @@ class SelectPopup {
             optionLink.addEventListener('click', () => {
                 selectElement.value = value;
                 this.closePopup(selectElement);
+                this.createChangeEvent(selectElement);
             });
             popup.appendChild(optionLink);
         });
@@ -130,6 +133,14 @@ class SelectPopup {
             event.preventDefault();
             this.popup ? this.closePopup(selectElement) : this.openPopup(selectElement);
         });
+    }
+
+    createChangeEvent(selectElement) {
+        const event = new Event('change', {
+            bubbles: true,
+            cancelable: true
+        });
+        selectElement.dispatchEvent(event);
     }
 }
 
