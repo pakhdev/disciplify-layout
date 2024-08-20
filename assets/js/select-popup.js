@@ -81,6 +81,7 @@ class SelectPopup {
     }
 
     addPlaceholder(targetElement, text) {
+        if (this.isOptionSelected(targetElement)) return;
         this.hasPlaceholder = true;
         const placeHolder = document.createElement('option');
         placeHolder.text = text;
@@ -141,6 +142,12 @@ class SelectPopup {
             cancelable: true
         });
         selectElement.dispatchEvent(event);
+    }
+
+    isOptionSelected(selectElement) {
+        if (!(selectElement instanceof HTMLSelectElement))
+            throw new Error('Provided element is not a select element.');
+        return Array.from(selectElement.options).some(option => option.hasAttribute('selected'));
     }
 }
 
