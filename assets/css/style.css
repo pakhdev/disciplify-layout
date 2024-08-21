@@ -222,7 +222,14 @@ body {
 }
 .calendar__disabled-day {
     color: var(--pale-gray) !important;
+    & a {
+        cursor: default;
+    }
 }
+.calendar__disabled-day:hover {
+    background-color: white !important;
+}
+
 .calendar__toolbar {
     display: flex;
     justify-content: space-between;
@@ -234,6 +241,8 @@ body {
     font-size: 10px;
     color: white;
     background-color: var(--bright-blue);
+    text-align: center;
+    border: 0;
     padding: 4px 7px 2px 7px;
     border-radius: 5px;
     cursor: pointer;

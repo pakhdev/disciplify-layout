@@ -11,6 +11,7 @@ class Calendar {
     targetElement = null;
     showFutureYears = 1;
 
+    padding = 10;
     calendarClass = 'calendar';
     headerClass = 'calendar__header';
     daysContainerClass = 'calendar__days';
@@ -36,6 +37,7 @@ class Calendar {
 
     openCalendar() {
         this
+            .getInputValue()
             .createCalendar()
             .createHeader()
             .createDaysContainer()
@@ -50,12 +52,23 @@ class Calendar {
         this.calendar = null;
     }
 
+    getInputValue() {
+        const inputValue = this.targetElement.value;
+        const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/;
+        if (regex.test(inputValue)) {
+            const [day, month, year] = inputValue.split('/');
+            this.selectedMonth = parseInt(month) - 1;
+            this.selectedYear = parseInt(year);
+        }
+        return this;
+    }
+
     calculatePosition(targetElement) {
         const { right, top } = targetElement.getBoundingClientRect();
         const { top: parentTop, left: parentLeft } = targetElement.parentElement.getBoundingClientRect();
         return {
             top: (top - parentTop) + 'px',
-            left: (right - parentLeft) + 'px'
+            left: (right - parentLeft + this.padding) + 'px'
         };
     }
 
@@ -182,6 +195,7 @@ class Calendar {
             const option = document.createElement('option');
             option.value = i.toString();
             option.text = this.months[i];
+            if (i === this.selectedMonth) option.selected = true;
             this.monthSelect.appendChild(option);
         }
         return this;
@@ -197,6 +211,7 @@ class Calendar {
             const option = document.createElement('option');
             option.value = i.toString();
             option.text = i.toString();
+            if (i === this.selectedYear) option.selected = true;
             this.yearSelect.appendChild(option);
         }
 
