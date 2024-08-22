@@ -49,7 +49,6 @@ class SelectPopup {
 
         targetElement.style.appearance = 'none';
 
-        this.extractOptions(targetElement);
         this.setWidth(targetElement);
         targetElement.style.width = this.width.toString() + 'px';
         this.bindClickHandler(targetElement);
@@ -67,6 +66,7 @@ class SelectPopup {
     }
 
     populatePopup(popup, selectElement) {
+        this.extractOptions(selectElement);
         const startIdx = this.hasPlaceholder ? 1 : 0;
         this.options.slice(startIdx).forEach(({ value, text }) => {
             const optionLink = document.createElement('a');

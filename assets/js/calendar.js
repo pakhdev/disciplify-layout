@@ -32,7 +32,7 @@ class Calendar {
         this.targetElement.parentElement.style.position = 'relative';
         this.selectedMonth = this.currentMonth;
         this.selectedYear = this.currentYear;
-        this.bindClickHandler();
+        this.bindInputClickHandler();
     }
 
     openCalendar() {
@@ -72,12 +72,27 @@ class Calendar {
         };
     }
 
-    bindClickHandler() {
+    bindInputClickHandler() {
         this.targetElement.addEventListener('click', () => {
             if (this.calendar)
                 this.closeCalendar();
             else
                 this.openCalendar();
+        });
+    }
+
+    bindYearChangeHandler(selectElement) {
+        selectElement.addEventListener('change', (e) => {
+            this.selectedYear = Number(e.target.value);
+            this.populateDays();
+            this.populateMonthSelect();
+        });
+    }
+
+    bindMonthChangeHandler(selectElement) {
+        selectElement.addEventListener('change', (e) => {
+            this.selectedMonth = Number(e.target.value);
+            this.populateDays(e.target.value);
         });
     }
 
@@ -111,27 +126,44 @@ class Calendar {
         const toolbar = document.createElement('div');
         toolbar.className = this.toolbarClass;
 
-        this.monthSelect = this.createCustomSelect();
+        this.monthSelect = this.createCustomSelect('month');
         toolbar.appendChild(this.monthSelect);
 
-        this.yearSelect = this.createCustomSelect();
+        this.yearSelect = this.createCustomSelect('year');
         toolbar.appendChild(this.yearSelect);
 
         this.calendar.appendChild(toolbar);
         return this;
     }
 
-    createCustomSelect() {
+    createCustomSelect(type) {
         const customSelect = document.createElement('select');
         customSelect.className = this.selectClass;
         customSelect.style.appearance = 'none';
         customSelect.setAttribute('custom-select', 'true');
         customSelect.setAttribute('custom-select-active-class', 'calendar__select--active');
+
+        if (type === 'month') {
+            this.bindMonthChangeHandler(customSelect);
+        } else if (type === 'year') {
+            this.bindYearChangeHandler(customSelect);
+        }
+
         return customSelect;
+    }
+
+    createEmptyCell() {
+        const emptyCell = document.createElement('div');
+        emptyCell.classList.add(this.disabledDayClass);
+        return emptyCell;
     }
 
     populateDays() {
         this.daysContainer.innerHTML = '';
+
+        if (this.selectedYear === this.currentYear && this.selectedMonth < this.currentMonth) {
+            this.selectedMonth = this.currentMonth;
+        }
 
         const firstDay = this.dayWeekNumber[new Date(this.selectedYear, this.selectedMonth, 1).getDay()];
         const daysInMonth = new Date(this.selectedYear, this.selectedMonth + 1, 0).getDate();
@@ -145,8 +177,7 @@ class Calendar {
         currentRow.className = this.weekRowClass;
 
         for (let i = 0; i < firstDay; i++) {
-            const emptyCell = document.createElement('div');
-            currentRow.appendChild(emptyCell);
+            currentRow.appendChild(this.createEmptyCell());
             weekCellCounter++;
         }
 
@@ -175,8 +206,7 @@ class Calendar {
 
         if (weekCellCounter > 0 && weekCellCounter < 7) {
             for (let i = weekCellCounter; i < 7; i++) {
-                const emptyCell = document.createElement('div');
-                currentRow.appendChild(emptyCell);
+                currentRow.appendChild(this.createEmptyCell());
             }
         }
         this.daysContainer.appendChild(currentRow);
@@ -185,13 +215,9 @@ class Calendar {
     }
 
     populateMonthSelect() {
-        this.monthSelect.className = this.selectClass;
-        this.monthSelect.addEventListener('change', (e) => {
-            this.selectedMonth = e.target.value;
-            this.populateDays(e.target.value);
-        });
-
-        for (let i = this.currentMonth; i < this.months.length; i++) {
+        this.monthSelect.innerHTML = '';
+        const startFrom = this.selectedYear === this.currentYear ? this.currentMonth : 0;
+        for (let i = startFrom; i < this.months.length; i++) {
             const option = document.createElement('option');
             option.value = i.toString();
             option.text = this.months[i];
@@ -202,11 +228,6 @@ class Calendar {
     }
 
     populateYearSelect() {
-        this.yearSelect.addEventListener('change', (e) => {
-            this.selectedYear = e.target.value;
-            this.populateDays();
-        });
-
         for (let i = this.currentYear; i <= this.currentYear + this.showFutureYears; i++) {
             const option = document.createElement('option');
             option.value = i.toString();
