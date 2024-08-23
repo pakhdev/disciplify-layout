@@ -33,121 +33,136 @@ class SelectPopup {
     popupClass = 'select-popup';
     activeClass = null;
     popup = null;
+    targetElement = null;
     options = [];
     width = 0;
     hasPlaceholder = false;
 
     constructor(args) {
         const {
-            element: targetElement,
+            element,
             placeholder,
             activeClass,
         } = args;
 
-        if (placeholder) this.addPlaceholder(targetElement, placeholder);
+        this.targetElement = element;
+        if (placeholder) this.addPlaceholder(placeholder);
         if (activeClass) this.activeClass = activeClass;
 
-        targetElement.style.appearance = 'none';
+        this.targetElement.style.appearance = 'none';
 
-        this.setWidth(targetElement);
-        targetElement.style.width = this.width.toString() + 'px';
-        this.bindClickHandler(targetElement);
+        this.setWidth();
+        this.targetElement.style.width = this.width.toString() + 'px';
+        this.bindClickHandler();
     }
 
-    createPopup(targetElement) {
+    createPopup() {
         const popup = document.createElement('div');
         popup.className = this.popupClass;
-        this.populatePopup(popup, targetElement);
+        this.populatePopup(popup);
 
-        const { top, left } = this.calculatePosition(targetElement);
+        const { top, left } = this.calculatePosition();
         popup.style.top = top;
         popup.style.left = left;
         return popup;
     }
 
-    populatePopup(popup, selectElement) {
-        this.extractOptions(selectElement);
+    populatePopup(popup) {
+        this.extractOptions(this.targetElement);
         const startIdx = this.hasPlaceholder ? 1 : 0;
         this.options.slice(startIdx).forEach(({ value, text }) => {
             const optionLink = document.createElement('a');
             optionLink.innerText = text;
             optionLink.addEventListener('click', () => {
-                selectElement.value = value;
-                this.closePopup(selectElement);
-                this.createChangeEvent(selectElement);
+                this.targetElement.value = value;
+                this.closePopup(this.targetElement);
+                this.createChangeEvent(this.targetElement);
             });
             popup.appendChild(optionLink);
         });
     }
 
-    addPlaceholder(targetElement, text) {
-        if (this.isOptionSelected(targetElement)) return;
+    addPlaceholder(text) {
+        if (this.isOptionSelected(this.targetElement)) return;
         this.hasPlaceholder = true;
         const placeHolder = document.createElement('option');
         placeHolder.text = text;
         placeHolder.selected = true;
-        targetElement.insertBefore(placeHolder, targetElement.firstChild);
+        this.targetElement.insertBefore(placeHolder, this.targetElement.firstChild);
     }
 
-    openPopup(targetElement) {
-        if (this.activeClass) targetElement.classList.add(this.activeClass);
-        this.popup = this.createPopup(targetElement);
+    openPopup() {
+        if (this.activeClass) this.targetElement.classList.add(this.activeClass);
+        this.popup = this.createPopup();
         this.popup.style.width = this.width.toString() + 'px';
-        targetElement.parentNode.insertBefore(this.popup, targetElement.nextSibling);
+        this.targetElement.parentNode.insertBefore(this.popup, this.targetElement.nextSibling);
     }
 
-    closePopup(targetElement) {
-        if (this.activeClass) targetElement.classList.remove(this.activeClass);
+    closePopup() {
+        if (this.activeClass) this.targetElement.classList.remove(this.activeClass);
         this.popup.remove();
         this.popup = null;
     }
 
-    setWidth(selectElement) {
-        const tempPopup = this.createPopup(selectElement);
+    setWidth() {
+        const tempPopup = this.createPopup();
         tempPopup.style.visibility = 'hidden';
-        selectElement.parentNode.insertBefore(tempPopup, selectElement.nextSibling);
+        this.targetElement.parentNode.insertBefore(tempPopup, this.targetElement.nextSibling);
 
         const popupWidth = tempPopup.getBoundingClientRect().width;
-        const selectWidth = selectElement.getBoundingClientRect().width;
+        const selectWidth = this.targetElement.getBoundingClientRect().width;
         this.width = Math.max(popupWidth, selectWidth);
         tempPopup.remove();
     }
 
-    calculatePosition(targetElement) {
-        const { bottom, left } = targetElement.getBoundingClientRect();
-        const { top: parentTop, left: parentLeft } = targetElement.parentElement.getBoundingClientRect();
+    calculatePosition() {
+        const { bottom, left } = this.targetElement.getBoundingClientRect();
+        const { top: parentTop, left: parentLeft } = this.targetElement.parentElement.getBoundingClientRect();
         return {
             top: bottom - parentTop.toString() + 'px',
             left: left - parentLeft.toString() + 'px'
         };
     }
 
-    extractOptions(selectElement) {
-        this.options = Array.from(selectElement.querySelectorAll('option')).map(option => ({
+    extractOptions() {
+        this.options = Array.from(this.targetElement.querySelectorAll('option')).map(option => ({
             value: option.value,
             text: option.text
         }));
     }
 
-    bindClickHandler(selectElement) {
-        selectElement.addEventListener('mousedown', (event) => {
-            event.preventDefault();
-            this.popup ? this.closePopup(selectElement) : this.openPopup(selectElement);
+    bindClickHandler() {
+        document.addEventListener('mousedown', (event) => {
+            if (event.target === this.targetElement)
+                this.handleClickOnSelect(event);
+            else if (this.popup)
+                this.handleClickOutside(event);
         });
     }
 
-    createChangeEvent(selectElement) {
+    handleClickOutside(event) {
+        if (!this.popup.contains(event.target)) {
+            this.closePopup();
+        }
+    }
+
+    handleClickOnSelect(event) {
+        event.preventDefault();
+        this.popup ? this.closePopup() : this.openPopup();
+    }
+
+    createChangeEvent() {
         const event = new Event('change', {
             bubbles: true,
             cancelable: true
         });
-        selectElement.dispatchEvent(event);
+        this.targetElement.dispatchEvent(event);
     }
 
-    isOptionSelected(selectElement) {
-        if (!(selectElement instanceof HTMLSelectElement))
+    isOptionSelected() {
+        if (!(this.targetElement instanceof HTMLSelectElement))
             throw new Error('Provided element is not a select element.');
-        return Array.from(selectElement.options).some(option => option.hasAttribute('selected'));
+        return Array.from(this.targetElement.options).some(option => option.hasAttribute('selected'));
     }
 }
 

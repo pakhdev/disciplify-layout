@@ -25,6 +25,8 @@ class Calendar {
     monthSelect = null;
     yearSelect = null;
 
+    outsideClickListener = null;
+
     constructor(targetElement) {
         if (!targetElement)
             throw new Error('Calendar: targetElement is required');
@@ -44,12 +46,14 @@ class Calendar {
             .createToolbar()
             .populateDays(this.currentYear, this.currentMonth)
             .populateMonthSelect(this.currentMonth)
-            .populateYearSelect(this.currentYear);
+            .populateYearSelect(this.currentYear)
+            .setOutsideClickListener();
     }
 
     closeCalendar() {
         this.calendar.remove();
         this.calendar = null;
+        this.removeOutsideClickListener();
     }
 
     getInputValue() {
@@ -94,6 +98,23 @@ class Calendar {
             this.selectedMonth = Number(e.target.value);
             this.populateDays(e.target.value);
         });
+    }
+
+    setOutsideClickListener() {
+        this.outsideClickListener = (event) => this.handleClickOutside(event);
+        document.addEventListener('mousedown', this.outsideClickListener);
+        return this;
+    }
+
+    removeOutsideClickListener() {
+        document.removeEventListener('mousedown', this.outsideClickListener);
+        this.outsideClickListener = null;
+    }
+
+    handleClickOutside(event) {
+        if (!this.calendar.contains(event.target)) {
+            this.closeCalendar();
+        }
     }
 
     createCalendar() {
