@@ -16,16 +16,18 @@
 //   custom-select-placeholder="Select Category"                         // Optional
 // >
 //
-// 2. **Manual Assign**
+// 2. **Manual Assign (not recommended)**
 // --------------------------------
 // If you prefer to manually initialize a specific select element, use the following code:
 //
 // const categoriesSelect = document.getElementById('categories-select');
-// new SelectPopup({
+// const example = new SelectPopup({
 //   element: categoriesSelect,
 //   placeholder: 'Select Category',
 //   activeClass: 'input-multi-select__add-button--active'
 // });
+// Attention! After removing the element from the DOM, you must call the removeClickHandler method to avoid memory leaks.
+// example.removeClickHandler();
 
 
 class SelectPopup {
@@ -37,6 +39,8 @@ class SelectPopup {
     options = [];
     width = 0;
     hasPlaceholder = false;
+
+    onMousedownHandler = null;
 
     constructor(args) {
         const {
@@ -132,12 +136,17 @@ class SelectPopup {
     }
 
     bindClickHandler() {
-        document.addEventListener('mousedown', (event) => {
+        this.onMousedownHandler = (event) => {
             if (event.target === this.targetElement)
                 this.handleClickOnSelect(event);
             else if (this.popup)
                 this.handleClickOutside(event);
-        });
+        };
+        document.addEventListener('mousedown', this.onMousedownHandler);
+    }
+
+    removeClickHandler() {
+        document.removeEventListener('mousedown', this.onMousedownHandler);
     }
 
     handleClickOutside(event) {
