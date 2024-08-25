@@ -176,11 +176,15 @@ class SelectPopup {
 }
 
 class CustomSelectManager {
+
+    customSelects = new Map();
+
     constructor() {
         this.observer = new MutationObserver((mutationsList) => {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'childList') {
-                    this.checkAndInitSelects();
+                    this.handleAddedNodes(mutation.addedNodes);
+                    this.handleRemovedNodes(mutation.removedNodes);
                 }
             }
         });
@@ -193,19 +197,52 @@ class CustomSelectManager {
         const selectElements = document.querySelectorAll('select[custom-select="true"]:not(.initialized)');
         selectElements.forEach(select => {
             this.initSelectPopup(select);
-            select.classList.add('initialized');
         });
     }
 
     initSelectPopup(element) {
         const placeholder = element.getAttribute('custom-select-placeholder') || undefined;
         const activeClass = element.getAttribute('custom-select-active-class') || undefined;
+        element.classList.add('initialized');
 
-        new SelectPopup({
+        const selectPopupInstance = new SelectPopup({
             element: element,
             placeholder: placeholder,
             activeClass: activeClass
         });
+        this.customSelects.set(element, selectPopupInstance);
+    }
+
+    handleAddedNodes(nodes) {
+        nodes.forEach(node => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.matches('select[custom-select="true"]:not(.initialized)'))
+                    this.initSelectPopup(node);
+
+                const selectElements = node.querySelectorAll('select[custom-select="true"]:not(.initialized)');
+                selectElements.forEach(select => this.initSelectPopup(select));
+            }
+        });
+    }
+
+    handleRemovedNodes(nodes) {
+        nodes.forEach(node => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+                if (node.matches('select[custom-select="true"].initialized'))
+                    this.removeSelectPopup(node);
+
+                const removedSelects = node.querySelectorAll('select[custom-select="true"].initialized');
+                removedSelects.forEach(select => this.removeSelectPopup(select));
+            }
+        });
+    }
+
+    removeSelectPopup(element) {
+        const selectPopupInstance = this.customSelects.get(element);
+        if (selectPopupInstance) {
+            selectPopupInstance.removeClickHandler();
+            this.customSelects.delete(element);
+        }
     }
 
     disconnect() {
