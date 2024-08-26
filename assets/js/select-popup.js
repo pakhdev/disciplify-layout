@@ -20,7 +20,7 @@
 // --------------------------------
 // If you prefer to manually initialize a specific select element, use the following code:
 //
-// const categoriesSelect = document.getElementById('categories-select');
+// const categoriesSelect = document.getElementById('your-element-id');
 // const example = new SelectPopup({
 //   element: categoriesSelect,
 //   placeholder: 'Select Category',

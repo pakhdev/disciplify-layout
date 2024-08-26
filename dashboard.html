@@ -114,7 +114,13 @@
                     <a class="chart__active-option">Percentage</a>
                     <a>Points</a>
                 </div>
-                <div class="chart__content" id="daily-chart"></div>
+                <div
+                    append-chart="true"
+                    chart-width="400"
+                    chart-height="130"
+                    chart-labels='"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"'
+                    chart-data-numbers='10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17'
+                    class="chart__content" id="daily-chart"></div>
             </div>
             <div class="chart">
                 <div class="chart__header">
@@ -124,7 +130,13 @@
                     <a class="chart__active-option">Percentage</a>
                     <a>Points</a>
                 </div>
-                <div class="chart__content" id="weekly-chart"></div>
+                <div
+                    append-chart="true"
+                    chart-width="400"
+                    chart-height="130"
+                    chart-labels='"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"'
+                    chart-data-numbers='10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17'
+                    class="chart__content" id="weekly-chart"></div>
             </div>
             <div class="chart">
                 <div class="chart__header">
@@ -134,7 +146,14 @@
                     <a class="chart__active-option">Percentage</a>
                     <a>Points</a>
                 </div>
-                <div class="chart__content" id="monthly-chart"></div>
+                <div
+                    append-chart="true"
+                    chart-width="400"
+                    chart-height="130"
+                    chart-labels='"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"'
+                    chart-data-numbers='10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17'
+                    class="chart__content" id="monthly-chart">
+                </div>
             </div>
         </div>
     </div>
@@ -315,33 +334,10 @@
         </div>
     </div>
     <script>
-        const dailyChart = document.getElementById('daily-chart');
-        new Chart({
-            width: 400,
-            height: 130,
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            dataNumbers: [10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17],
-            container: dailyChart
-        })
-        const weeklyChart = document.getElementById('weekly-chart');
-        new Chart({
-            width: 400,
-            height: 130,
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            dataNumbers: [10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17],
-            container: weeklyChart
-        })
-        const monthlyChart = document.getElementById('monthly-chart');
-        new Chart({
-            width: 400,
-            height: 130,
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-            dataNumbers: [10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17],
-            container: monthlyChart
-        })
         const dateInput = document.getElementById('date');
         new Calendar(dateInput);
         new CustomSelectManager();
+        new ChartManager();
     </script>
 </div>
 </body>

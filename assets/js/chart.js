@@ -1,3 +1,36 @@
+// ================================
+//            USAGE OPTIONS
+// ================================
+//
+// 1. **Auto Assign**
+// --------------------------------
+// To automatically initialize custom select elements, follow these steps:
+//
+// - Add the following JavaScript code at the end of your HTML file.
+// new ChartManager();
+//
+// - Include the following attributes in your <select> element:
+// <select
+//     append-chart="true"
+//     chart-width="400"
+//     chart-height="130"
+//     chart-labels='"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"'
+//     chart-data-numbers='10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17'
+// >
+//
+// 2. **Manual Assign**
+// --------------------------------
+// If you prefer to manually initialize a specific select element, use the following code:
+//
+// const monthlyChart = document.getElementById('your-element-id');
+// new Chart({
+//     width: 400,
+//     height: 130,
+//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+//     dataNumbers: [10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17],
+//     container: monthlyChart
+// })
+
 class Chart {
     lineColor = 'rgba(168,229,242, 1)';
     pointColor = 'rgba(168,229,242, 1)';
@@ -106,5 +139,55 @@ class Chart {
                 tooltip.style.display = 'none';
             }
         });
+    }
+}
+
+class ChartManager {
+    constructor() {
+        this.observer = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    this.checkAndInitCharts();
+                }
+            }
+        });
+
+        this.observer.observe(document.body, { childList: true, subtree: true });
+        this.checkAndInitCharts();
+    }
+
+    checkAndInitCharts() {
+        const divElements = document.querySelectorAll('div[append-chart="true"][chart-width][chart-height][chart-labels][chart-data-numbers]:not(.initialized)');
+        divElements.forEach(select => {
+            this.initChart(select);
+            select.classList.add('initialized');
+        });
+    }
+
+    initChart(container) {
+        const width = Number(container.getAttribute('chart-width'));
+        const height = Number(container.getAttribute('chart-height'));
+        const labelsString = container.getAttribute('chart-labels');
+        const dataNumbersString = container.getAttribute('chart-data-numbers');
+
+        const labelsArray = labelsString
+            .split(',')
+            .map(label => label.trim().replace(/['"]/g, ''));
+
+        const dataNumbersArray = dataNumbersString
+            .split(',')
+            .map(number => Number(number.trim()));
+
+        new Chart({
+            width,
+            height,
+            labels: labelsArray,
+            dataNumbers: dataNumbersArray,
+            container
+        });
+    }
+
+    disconnect() {
+        this.observer.disconnect();
     }
 }
