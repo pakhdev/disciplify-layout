@@ -141,6 +141,7 @@ body {
 .input-option-selector__selected {
     background-color: var(--light-blue);
     border: 1px solid var(--bright-blue);
+    cursor: default;
 }
 .input-option-selector__option {
     & a {
@@ -229,7 +230,6 @@ body {
 .calendar__disabled-day:hover {
     background-color: white !important;
 }
-
 .calendar__toolbar {
     display: flex;
     justify-content: space-between;

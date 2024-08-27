@@ -80,7 +80,7 @@ class SelectPopup {
             optionLink.addEventListener('click', () => {
                 this.targetElement.value = value;
                 this.closePopup(this.targetElement);
-                this.createChangeEvent(this.targetElement);
+                this.emitChangeEvent(this.targetElement);
             });
             popup.appendChild(optionLink);
         });
@@ -160,7 +160,7 @@ class SelectPopup {
         this.popup ? this.closePopup() : this.openPopup();
     }
 
-    createChangeEvent() {
+    emitChangeEvent() {
         const event = new Event('change', {
             bubbles: true,
             cancelable: true
@@ -175,7 +175,7 @@ class SelectPopup {
     }
 }
 
-class CustomSelectManager {
+class PopupSelectManager {
 
     customSelects = new Map();
 

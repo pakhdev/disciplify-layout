@@ -4,13 +4,13 @@
 //
 // 1. **Auto Assign**
 // --------------------------------
-// To automatically initialize custom select elements, follow these steps:
+// To automatically initialize a chart in your Div, follow these steps:
 //
 // - Add the following JavaScript code at the end of your HTML file.
 // new ChartManager();
 //
-// - Include the following attributes in your <select> element:
-// <select
+// - Include the following attributes in your <div> element:
+// <div
 //     append-chart="true"
 //     chart-width="400"
 //     chart-height="130"
@@ -20,7 +20,7 @@
 //
 // 2. **Manual Assign**
 // --------------------------------
-// If you prefer to manually initialize a specific select element, use the following code:
+// If you prefer to manually initialize a specific div element, use the following code:
 //
 // const monthlyChart = document.getElementById('your-element-id');
 // new Chart({

@@ -8,6 +8,7 @@
     <script src="assets/js/chart.js"></script>
     <script src="assets/js/select-popup.js"></script>
     <script src="assets/js/calendar.js"></script>
+    <script src="assets/js/select-tabs.js"></script>
 </head>
 <body>
 <div class="dashboard">
@@ -40,35 +41,35 @@
                     </div>
                     <div class="new-task__input-label">Schedule for:</div>
                     <div class="new-task__input-container">
-                        <div class="input-option-selector">
-                            <div class="input-option-selector__selected">Today</div>
-                            <div class="input-option-selector__option"><a>Tomorrow</a></div>
-                            <div class="input-option-selector__option"><a>Date</a></div>
-                            <div class="input-option-selector__option"><a>Recurring</a></div>
-                        </div>
+                        <select select-tabs="true">
+                            <option>Today</option>
+                            <option>Tomorrow</option>
+                            <option>Date</option>
+                            <option>Recurring</option>
+                        </select>
                     </div>
                     <div class="new-task__input-label">Task type:</div>
                     <div class="new-task__input-container">
-                        <div class="input-option-selector">
-                            <div class="input-option-selector__selected">To do</div>
-                            <div class="input-option-selector__option"><a>To avoid</a></div>
-                        </div>
+                        <select select-tabs="true">
+                            <option>To do</option>
+                            <option>To avoid</option>
+                        </select>
                     </div>
                     <div class="new-task__input-label">Difficulty:</div>
                     <div class="new-task__input-container">
-                        <div class="input-option-selector">
-                            <div class="input-option-selector__selected">Easy</div>
-                            <div class="input-option-selector__option">Normal</div>
-                            <div class="input-option-selector__option">Hard</div>
-                            <div class="input-option-selector__option">Nightmare</div>
-                        </div>
+                        <select select-tabs="true">
+                            <option>Easy</option>
+                            <option>Normal</option>
+                            <option>Hard</option>
+                            <option>Nightmare</option>
+                        </select>
                     </div>
                     <div class="new-task__input-label">Is optional:</div>
                     <div class="new-task__input-container">
-                        <div class="input-option-selector">
-                            <div class="input-option-selector__selected">False</div>
-                            <div class="input-option-selector__option"><a>True</a></div>
-                        </div>
+                        <select select-tabs="true">
+                            <option>True</option>
+                            <option selected>False</option>
+                        </select>
                     </div>
                     <div class="new-task__input-label">Times per day:</div>
                     <div class="new-task__input-container">
@@ -81,7 +82,7 @@
                     <div class="new-task__input-label">Repeat every:</div>
                     <div class="new-task__input-container">
                         <input type="number" class="input-number" value="1" max="365">
-                        <span class="text-after-input"></span>
+                        <span class="text-after-input">days</span>
                     </div>
                     <div class="new-task__input-label">Allowed days:</div>
                     <div class="new-task__input-container">
@@ -97,10 +98,10 @@
                     </div>
                     <div class="new-task__input-label">On restricted days:</div>
                     <div class="new-task__input-container">
-                        <div class="input-option-selector">
-                            <div class="input-option-selector__selected">Next allowed day</div>
-                            <div class="input-option-selector__option"><a>Previous allowed day</a></div>
-                        </div>
+                        <select select-tabs="true">
+                            <option>Next allowed day</option>
+                            <option selected>Previous allowed day</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -336,8 +337,9 @@
     <script>
         const dateInput = document.getElementById('date');
         new Calendar(dateInput);
-        new CustomSelectManager();
+        new PopupSelectManager();
         new ChartManager();
+        new SelectTabsManager();
     </script>
 </div>
 </body>
