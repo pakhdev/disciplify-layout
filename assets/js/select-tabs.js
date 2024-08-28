@@ -2,6 +2,8 @@
 //            USAGE OPTIONS
 // ================================
 //
+// Multiple Selects are supported.
+//
 // CSS Classes Configuration:
 // CSS classes can be passed through the attributes of the select element or in the args object when using manual initialization.
 // If these classes are not provided, the default classes (hardcoded in SelectTabs) will be used. You can change
@@ -41,10 +43,11 @@ class SelectTabs {
     container = null;
     options = [];
 
+    isMultiple = false;
+
     containerClass = 'input-option-selector';
     activeOptionClass = 'input-option-selector__selected';
     optionClass = 'input-option-selector__option';
-
 
     constructor(args) {
         const {
@@ -63,9 +66,12 @@ class SelectTabs {
             this.optionClass = optionClass;
         this.targetElement.style.display = 'none';
 
+        if (this.targetElement.multiple)
+            this.isMultiple = true;
+
         this
             .createContainer()
-            .populateTabs()
+            .populateTabs();
     }
 
     createContainer() {
@@ -87,7 +93,7 @@ class SelectTabs {
             } else {
                 tab.className = this.optionClass;
             }
-            tab.addEventListener('click', () => this.activateTab(tab, value));
+            tab.addEventListener('click', () => this.manageTabState(tab, value));
             this.container.appendChild(tab);
         });
     }
@@ -96,14 +102,43 @@ class SelectTabs {
         this.options = Array.from(element.options).map(option => ({
             value: option.value,
             text: option.text,
-            active: option.selected
+            active: option.selected,
         }));
     }
 
+    manageTabState(tab, value) {
+        if (this.isMultiple) {
+            if (tab.className === this.activeOptionClass) {
+                this.deactivateTab(tab, value);
+            } else {
+                this.activateTab(tab, value);
+            }
+        } else this.activateTab(tab, value);
+    }
+
     activateTab(tab, value) {
-        this.container.querySelector(`.${this.activeOptionClass}`).className = this.optionClass;
+        if (this.isMultiple) {
+            this.selectOption(value);
+        } else {
+            this.container.querySelector(`.${ this.activeOptionClass }`).className = this.optionClass;
+            this.assignSelectValue(value);
+        }
         tab.className = this.activeOptionClass;
-        this.assignSelectValue(value);
+    }
+
+    deactivateTab(tab, value) {
+        tab.className = this.optionClass;
+        this.unselectOption(value);
+    }
+
+    selectOption(value) {
+        Array.from(this.targetElement.options).find(option => option.value === value).setAttribute('selected', 'selected');
+        this.emitChangeEvent();
+    }
+
+    unselectOption(value) {
+        Array.from(this.targetElement.options).find(option => option.value === value).removeAttribute('selected');
+        this.emitChangeEvent();
     }
 
     assignSelectValue(value) {
@@ -115,7 +150,7 @@ class SelectTabs {
     emitChangeEvent() {
         const event = new Event('change', {
             bubbles: true,
-            cancelable: true
+            cancelable: true,
         });
         this.targetElement.dispatchEvent(event);
     }
@@ -145,7 +180,7 @@ class SelectTabsManager {
                 element: select,
                 containerClass,
                 activeOptionClass,
-                optionClass
+                optionClass,
             });
             select.classList.add('initialized');
         });

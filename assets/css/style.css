@@ -131,12 +131,16 @@ body {
 }
 .input-option-selector__selected,
 .input-option-selector__selected--multi,
-.input-option-selector__option {
+.input-option-selector__option,
+.input-option-selector__option--multi {
     border-radius: 5px;
     border: 0;
     line-height: 30px;
     height: 30px;
     padding: 0 15px;
+}
+.input-option-selector__option--multi {
+    cursor: pointer;
 }
 .input-option-selector__selected {
     background-color: var(--light-blue);
@@ -153,6 +157,7 @@ body {
     border-radius: 0;
     border-top: 1px solid var(--bright-blue);
     border-bottom: 1px solid var(--bright-blue);
+    cursor: pointer;
 }
 .input-option-selector__selected--multi:first-child {
     border-radius: 5px 0 0 5px;
@@ -318,7 +323,8 @@ body {
     color: var(--dark-blue);
     cursor: default;
 }
-.chart__content {}
+.chart__content {
+}
 .chart__tooltip {
     line-height: 14px;
     font-size: 10px;

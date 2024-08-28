@@ -86,15 +86,22 @@
                     </div>
                     <div class="new-task__input-label">Allowed days:</div>
                     <div class="new-task__input-container">
-                        <div class="input-option-selector--multi">
-                            <div class="input-option-selector__selected--multi">Mon</div>
-                            <div class="input-option-selector__selected--multi">Tue</div>
-                            <div class="input-option-selector__selected--multi">Wed</div>
-                            <div class="input-option-selector__selected--multi">Thy</div>
-                            <div class="input-option-selector__selected--multi">Fri</div>
-                            <div class="input-option-selector__option"><a>Sat</a></div>
-                            <div class="input-option-selector__option"><a>Sun</a></div>
-                        </div>
+                        <select
+                            id="test"
+                            select-tabs="true"
+                            multiple="true"
+                            select-tabs-active-class="input-option-selector__selected--multi"
+                            select-tabs-option-class="input-option-selector__option--multi"
+                            select-tabs-container-class="input-option-selector--multi"
+                        >
+                            <option selected>Mon</option>
+                            <option selected>Tue</option>
+                            <option selected>Wed</option>
+                            <option selected>Thy</option>
+                            <option selected>Fri</option>
+                            <option>Sat</option>
+                            <option>Sun</option>
+                        </select>
                     </div>
                     <div class="new-task__input-label">On restricted days:</div>
                     <div class="new-task__input-container">
