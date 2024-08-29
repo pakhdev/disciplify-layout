@@ -40,7 +40,7 @@ html, body {
     min-height: 100vh;
 }
 body {
-    background: linear-gradient(45deg, var(--cloud-gray) 50%, white 50%, white 51.5%, var(--aqua) 51.5%);
+    background: linear-gradient(45deg, var(--cloud-gray) 50%, white 50%, white 51.5%, var(--aqua) 51.5%) fixed;
     display: flex;
     justify-content: center;
 }
@@ -171,7 +171,7 @@ body {
 .dashboard {
     width: 100%;
     max-width: 1450px;
-    margin: 40px 0;
+    margin: 40px 20px;
     padding: 40px 70px;
     background-color: white;
     border-radius: 20px;
@@ -340,6 +340,7 @@ body {
 /* Main part */
 .main-part {
     flex: 1;
+    min-width: 600px;
     margin-left: 60px;
     display: flex;
     flex-direction: column;

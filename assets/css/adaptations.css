@@ -1,0 +1,17 @@
+@media (max-width: 1300px) {
+    .dashboard {
+        padding: max(20px, calc(50vw - 610px)) max(25px, calc(50vw - 580px));
+    }
+    .main-part {
+        margin-left: max(25px, calc(50vw - 590px));
+    }
+}
+
+@media (max-width: 1175px) {
+    .input-option-selector__selected,
+    .input-option-selector__selected--multi,
+    .input-option-selector__option,
+    .input-option-selector__option--multi {
+        padding: 0 max(12px, calc(7vw - 67px));
+    }
+}
