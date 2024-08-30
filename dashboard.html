@@ -195,7 +195,15 @@
         </div>
         <div class="toolbar-two-columns">
             <div class="tasks-visualisation-selector">
-                Show only today's tasks
+                <select
+                    select-tabs="true"
+                    select-tabs-active-class="tasks-type-selector__selected"
+                    select-tabs-option-class="tasks-type-selector__option"
+                    select-tabs-container-class="tasks-type-selector"
+                >
+                    <option>Today's tasks</option>
+                    <option>All tasks</option>
+                </select>
             </div>
             <div class="category-creation">
                 <input type="text" class="input-text" placeholder="Category name">
@@ -215,25 +223,36 @@
                     </div>
                 </div>
                 <div class="tasks-section__task-list">
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--failed">Failed</div>
                         <div class="tasks-section__task-title">Smoking (Fails: 2/15)</div>
+                        <div class="tasks-section__task-toolbar-button--active">...</div>
+                        <div class="tasks-section__task-toolbar">
+                            <ul>
+                                <li><a>Edit task</a></li>
+                                <li><a>Delete task</a></li>
+                            </ul>
+                        </div>
                     </div>
                     <div class="tasks-section__task">
                         <div class="tasks-section__button--failed">Failed</div>
                         <div class="tasks-section__task-title">Energy drink (Fails: 0/2)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Medical appointment</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                     <div class="tasks-section__task">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Brushing teeth (Successes 1/2)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Get a haircut</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                 </div>
             </div>
@@ -249,25 +268,30 @@
                     </div>
                 </div>
                 <div class="tasks-section__task-list">
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--failed">Failed</div>
                         <div class="tasks-section__task-title">Smoking (Fails: 2/15)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                     <div class="tasks-section__task">
                         <div class="tasks-section__button--failed">Failed</div>
                         <div class="tasks-section__task-title">Energy drink (Fails: 0/2)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Medical appointment</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                     <div class="tasks-section__task">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Brushing teeth (Successes 1/2)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Get a haircut</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                 </div>
             </div>
@@ -283,25 +307,30 @@
                     </div>
                 </div>
                 <div class="tasks-section__task-list">
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--failed">Failed</div>
                         <div class="tasks-section__task-title">Smoking (Fails: 2/15)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                     <div class="tasks-section__task">
                         <div class="tasks-section__button--failed">Failed</div>
                         <div class="tasks-section__task-title">Energy drink (Fails: 0/2)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Medical appointment</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                     <div class="tasks-section__task">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Brushing teeth (Successes 1/2)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Get a haircut</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                 </div>
             </div>
@@ -317,25 +346,30 @@
                     </div>
                 </div>
                 <div class="tasks-section__task-list">
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--failed">Failed</div>
                         <div class="tasks-section__task-title">Smoking (Fails: 2/15)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                     <div class="tasks-section__task">
                         <div class="tasks-section__button--failed">Failed</div>
                         <div class="tasks-section__task-title">Energy drink (Fails: 0/2)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Medical appointment</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                     <div class="tasks-section__task">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Brushing teeth (Successes 1/2)</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
-                    <div class="tasks-section__task">
+                    <div class="tasks-section__task--dark">
                         <div class="tasks-section__button--done">Done</div>
                         <div class="tasks-section__task-title">Get a haircut</div>
+                        <div class="tasks-section__task-toolbar-button">...</div>
                     </div>
                 </div>
             </div>
