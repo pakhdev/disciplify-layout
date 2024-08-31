@@ -1,8 +1,29 @@
+// ================================
+//            USAGE OPTIONS
+// ================================
+//
+// 1. **Auto Assign**
+// --------------------------------
+// To automatically initialize a calendar in your inputs, follow these steps:
+//
+// - Add the following JavaScript code at the end of your HTML file.
+// new CalendarManager();
+//
+// - Include the following attribute in your <input> element:
+// <input type="text" use-calendar="true">
+//
+// 2. **Manual Assign**
+// --------------------------------
+// If you prefer to manually initialize a specific input element, use the following code:
+//
+// const yourInput = document.getElementById('your-element-id');
+// new Calendar(yourInput);
+
 class Calendar {
 
     // Monday is the first day of the week (0) and Sunday is the last day of the week (6)
-    dayWeekNumber = [6, 0, 1, 2, 3, 4, 5]
-    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    dayWeekNumber = [6, 0, 1, 2, 3, 4, 5];
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     currentYear = new Date().getFullYear();
     currentMonth = new Date().getMonth();
     selectedMonth = 0;
@@ -72,7 +93,7 @@ class Calendar {
         const { top: parentTop, left: parentLeft } = targetElement.parentElement.getBoundingClientRect();
         return {
             top: (top - parentTop) + 'px',
-            left: (right - parentLeft + this.padding) + 'px'
+            left: (right - parentLeft + this.padding) + 'px',
         };
     }
 
@@ -261,7 +282,32 @@ class Calendar {
     }
 
     setDateAndClose(day) {
-        this.targetElement.value = `${day}/${this.selectedMonth+1}/${this.selectedYear}`;
+        this.targetElement.value = `${ day }/${ this.selectedMonth + 1 }/${ this.selectedYear }`;
         this.closeCalendar();
+    }
+}
+
+class CalendarManager {
+    constructor() {
+        this.observer = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    this.checkAndInitCalendars();
+                }
+            }
+        });
+
+        this.observer.observe(document.body, { childList: true, subtree: true });
+        this.checkAndInitCalendars();
+    }
+
+    checkAndInitCalendars() {
+        const calendars = document.querySelectorAll('input[use-calendar="true"]');
+        for (const calendar of calendars) {
+            if (!calendar.classList.contains('initialized')) {
+                new Calendar(calendar);
+                calendar.classList.add('initialized');
+            }
+        }
     }
 }

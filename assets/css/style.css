@@ -156,6 +156,7 @@ body {
     cursor: default;
 }
 .input-option-selector__option {
+    border: 1px solid var(--light-gray);
     & a {
         cursor: pointer;
     }

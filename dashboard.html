@@ -78,7 +78,8 @@
                     </div>
                     <div class="new-task__input-label">Assign date</div>
                     <div class="new-task__input-container" style="position: relative">
-                        <input type="text" id="date" class="input-text" value="01/11/2025" placeholder="Date" readonly>
+                        <input type="text" use-calendar="true" id="date" class="input-text" value="01/11/2025"
+                               placeholder="Date" readonly>
                     </div>
                     <div class="new-task__input-label">Repeat every:</div>
                     <div class="new-task__input-container">
@@ -376,8 +377,7 @@
         </div>
     </div>
     <script>
-        const dateInput = document.getElementById('date');
-        new Calendar(dateInput);
+        new CalendarManager();
         new PopupSelectManager();
         new ChartManager();
         new SelectTabsManager();
