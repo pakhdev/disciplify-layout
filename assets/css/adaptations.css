@@ -15,3 +15,87 @@
         padding: 0 max(12px, calc(7vw - 67px));
     }
 }
+
+@media (max-width: 1125px) {
+    .main-part {
+        margin-left: 0;
+    }
+    .desktop {
+        display: none;
+    }
+    .left-part {
+        display: none;
+    }
+    .mobile {
+        display: block;
+    }
+    .category-creation {
+        display: flex;
+        justify-content: right;
+    }
+}
+
+@media (max-width: 950px) {
+    .content-two-columns {
+        display: flex;
+        flex-direction: column;
+    }
+    .chart__content {
+        text-align: center;
+    }
+    .main-part {
+        min-width: auto;
+    }
+    .category-creation {
+        min-width: auto;
+    }
+}
+
+@media (max-width: 590px) {
+    .content-two-columns {
+        gap: max(10px, calc(15vw - 58px));
+    }
+    .todays-progress {
+        margin-top: max(10px, calc(20vw - 78px));
+    }
+    .logo__name {
+        font-size: calc(15vw - 13px);
+        line-height: calc(15vw - 13px);
+    }
+    .logo__slogan {
+        font-size: calc(6vw - 5px);
+    }
+    .todays-progress {
+        flex-direction: column;
+    }
+    .main-toolbar {
+        flex-direction: column-reverse;
+    }
+    .tasks-visualisation-selector {
+        text-align: center;
+    }
+    .category-creation {
+        margin-bottom: 10px;
+    }
+    .new-task__create-button {
+        flex: 1;
+    }
+    .chart__content {
+        display: flex;
+    }
+    .chart__content canvas {
+        width: 100%;
+        object-fit: cover;
+        object-position: top left;
+    }
+}
+
+@media (max-width: 390px) {
+    .tasks-section__title {
+        font-size: calc(15vw - 24px);
+        line-height: calc(15vw - 3px);
+    }
+    .dashboard {
+        padding: 5.6vw max(10px, calc(20vw - 53px));
+    }
+}

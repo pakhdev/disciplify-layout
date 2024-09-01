@@ -53,8 +53,8 @@ body {
     font-size: 10px;
     height: 30px;
     line-height: 30px;
-    padding-top: 2px;
     cursor: pointer;
+    padding: 2px 10px 0;
 }
 .input-text, .input-number {
     color: var(--dark-blue);
@@ -175,6 +175,10 @@ body {
 .input-option-selector__selected--multi:last-child {
     border-radius: 0 5px 5px 0;
     border-right: 1px solid var(--bright-blue);
+}
+
+.mobile {
+    display: none;
 }
 
 .dashboard {
@@ -432,7 +436,7 @@ body {
     color: var(--gold);
 }
 
-.toolbar-two-columns {
+.main-toolbar {
     width: 100%;
     border-top: 1px solid var(--pale-blue);
     border-bottom: 1px solid var(--pale-blue);
@@ -446,6 +450,7 @@ body {
     color: var(--dark-blue);
     text-transform: uppercase;
     cursor: pointer;
+    margin-top: 4px;
 }
 .category-creation {
     display: grid;
