@@ -29,7 +29,6 @@
 // Attention! After removing the element from the DOM, you must call the removeClickHandler method to avoid memory leaks.
 // example.removeClickHandler();
 
-
 class SelectPopup {
 
     popupClass = 'select-popup';
@@ -111,12 +110,18 @@ class SelectPopup {
     setWidth() {
         const tempPopup = this.createPopup();
         tempPopup.style.visibility = 'hidden';
-        this.targetElement.parentNode.insertBefore(tempPopup, this.targetElement.nextSibling);
+        document.body.appendChild(tempPopup);
+
+        const tempTargetElement = this.targetElement.cloneNode(true);
+        tempTargetElement.style.visibility = 'hidden';
+        document.body.appendChild(tempTargetElement);
 
         const popupWidth = tempPopup.getBoundingClientRect().width;
-        const selectWidth = this.targetElement.getBoundingClientRect().width;
+        const selectWidth = tempTargetElement.getBoundingClientRect().width;
         this.width = Math.max(popupWidth, selectWidth);
+
         tempPopup.remove();
+        tempTargetElement.remove();
     }
 
     calculatePosition() {
@@ -124,14 +129,14 @@ class SelectPopup {
         const { top: parentTop, left: parentLeft } = this.targetElement.parentElement.getBoundingClientRect();
         return {
             top: bottom - parentTop.toString() + 'px',
-            left: left - parentLeft.toString() + 'px'
+            left: left - parentLeft.toString() + 'px',
         };
     }
 
     extractOptions() {
         this.options = Array.from(this.targetElement.querySelectorAll('option')).map(option => ({
             value: option.value,
-            text: option.text
+            text: option.text,
         }));
     }
 
@@ -163,7 +168,7 @@ class SelectPopup {
     emitChangeEvent() {
         const event = new Event('change', {
             bubbles: true,
-            cancelable: true
+            cancelable: true,
         });
         this.targetElement.dispatchEvent(event);
     }
@@ -208,7 +213,7 @@ class PopupSelectManager {
         const selectPopupInstance = new SelectPopup({
             element: element,
             placeholder: placeholder,
-            activeClass: activeClass
+            activeClass: activeClass,
         });
         this.customSelects.set(element, selectPopupInstance);
     }

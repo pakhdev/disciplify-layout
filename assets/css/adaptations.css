@@ -14,6 +14,9 @@
     .input-option-selector__option--multi {
         padding: 0 max(12px, calc(7vw - 67px));
     }
+    /*.modal__content {*/
+    /*    width: max(350px, calc(38vw + 53.5px));*/
+    /*}*/
 }
 
 @media (max-width: 1125px) {
@@ -87,6 +90,27 @@
         width: 100%;
         object-fit: cover;
         object-position: top left;
+    }
+}
+
+@media (max-width: 485px) {
+    .new-task__form {
+        margin-top: 10px;
+    }
+    .new-task__two-columns {
+        gap: 3px;
+    }
+    .new-task__two-columns {
+        display: flex;
+        flex-direction: column;
+    }
+    .new-task__input-label {
+        text-align: center;
+        line-height: 10px;
+    }
+    .new-task__input-container {
+        text-align: center;
+        margin-bottom: 10px;
     }
 }
 

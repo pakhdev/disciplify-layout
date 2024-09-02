@@ -209,8 +209,8 @@
             <div class="category-creation">
                 <input type="text" class="input-text desktop" placeholder="Category name">
                 <div class="new-task__create-button button desktop">Create</div>
-                <div class="new-task__create-button button mobile">Create new category</div>
-                <div class="new-task__create-button button mobile">Create new task</div>
+                <div class="new-task__create-button button mobile" onclick="openModal()">Create new category</div>
+                <div class="new-task__create-button button mobile" onclick="openModal()">Create new task</div>
             </div>
         </div>
         <div class="content-two-columns">
@@ -429,13 +429,126 @@
         </div>
 
     </div>
-    <script>
-        new CalendarManager();
-        new PopupSelectManager();
-        new ChartManager();
-        new SelectTabsManager();
-    </script>
 </div>
+<div class="modal" style="display: none" onclick="closeModal()">
+    <div class="modal__content">
+        <div class="modal__header">New task</div>
+        <div class="new-task__form">
+            <div class="new-task__two-columns-inverted">
+                <input type="text" class="input-text" placeholder="Task name">
+                <div class="new-task__create-button button">Create</div>
+            </div>
+            <div class="new-task__two-columns">
+                <div class="new-task__input-label">Categories:</div>
+                <div class="new-task__input-container">
+                    <div class="input-multi-select" style="position: relative">
+                        <div class="input-multi-select__selected">Health</div>
+                        <select
+                            custom-select="true"
+                            custom-select-active-class="input-multi-select__add-button--active"
+                            custom-select-placeholder="Select Category"
+                            id="categories-select"
+                            class="input-multi-select__add-button">
+                            <option>Health</option>
+                            <option>Career</option>
+                            <option>Money</option>
+                            <option>Family</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="new-task__input-label">Schedule for:</div>
+                <div class="new-task__input-container">
+                    <select select-tabs="true">
+                        <option>Today</option>
+                        <option>Tomorrow</option>
+                        <option>Date</option>
+                        <option>Recurring</option>
+                    </select>
+                </div>
+                <div class="new-task__input-label">Task type:</div>
+                <div class="new-task__input-container">
+                    <select select-tabs="true">
+                        <option>To do</option>
+                        <option>To avoid</option>
+                    </select>
+                </div>
+                <div class="new-task__input-label">Difficulty:</div>
+                <div class="new-task__input-container">
+                    <select select-tabs="true">
+                        <option>Easy</option>
+                        <option>Normal</option>
+                        <option>Hard</option>
+                        <option>Nightmare</option>
+                    </select>
+                </div>
+                <div class="new-task__input-label">Is optional:</div>
+                <div class="new-task__input-container">
+                    <select select-tabs="true">
+                        <option>True</option>
+                        <option selected>False</option>
+                    </select>
+                </div>
+                <div class="new-task__input-label">Times per day:</div>
+                <div class="new-task__input-container">
+                    <input type="number" class="input-number" value="1" max="50">
+                </div>
+                <div class="new-task__input-label">Assign date</div>
+                <div class="new-task__input-container" style="position: relative">
+                    <input type="text" use-calendar="true" id="date" class="input-text" value="01/11/2025"
+                           placeholder="Date" readonly>
+                </div>
+                <div class="new-task__input-label">Repeat every:</div>
+                <div class="new-task__input-container">
+                    <input type="number" class="input-number" value="1" max="365">
+                    <span class="text-after-input">days</span>
+                </div>
+                <div class="new-task__input-label">Allowed days:</div>
+                <div class="new-task__input-container">
+                    <select
+                        select-tabs="true"
+                        multiple="true"
+                        select-tabs-active-class="input-option-selector__selected--multi"
+                        select-tabs-option-class="input-option-selector__option--multi"
+                        select-tabs-container-class="input-option-selector--multi"
+                    >
+                        <option selected>Mon</option>
+                        <option selected>Tue</option>
+                        <option selected>Wed</option>
+                        <option selected>Thy</option>
+                        <option selected>Fri</option>
+                        <option>Sat</option>
+                        <option>Sun</option>
+                    </select>
+                </div>
+                <div class="new-task__input-label">On restricted days:</div>
+                <div class="new-task__input-container">
+                    <select select-tabs="true">
+                        <option>Next allowed day</option>
+                        <option selected>Previous allowed day</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    new CalendarManager();
+    new PopupSelectManager();
+    new ChartManager();
+    new SelectTabsManager();
+
+    document.querySelector('.modal__content').addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+    function openModal() {
+        document.querySelector('.modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.querySelector('.modal').style.display = 'none';
+    }
+</script>
 </body>
 </html>
 
