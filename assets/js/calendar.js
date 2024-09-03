@@ -9,15 +9,18 @@
 // - Add the following JavaScript code at the end of your HTML file.
 // new CalendarManager();
 //
-// - Include the following attribute in your <input> element:
-// <input type="text" use-calendar="true">
+// - Include the following attributes in your <input> element:
+// <input type="text"
+//    use-calendar="true"        // Required
+//    calendar-position="right"  // Optional: right or behind
+// >
 //
 // 2. **Manual Assign**
 // --------------------------------
 // If you prefer to manually initialize a specific input element, use the following code:
 //
 // const yourInput = document.getElementById('your-element-id');
-// new Calendar(yourInput);
+// new Calendar({ element: yourInput, position: 'right' });
 
 class Calendar {
 
@@ -32,7 +35,9 @@ class Calendar {
     targetElement = null;
     showFutureYears = 1;
 
-    padding = 10;
+    rightPadding = 10;
+    bottomPadding = 5;
+    position = 'right'; // right or behind
     calendarClass = 'calendar';
     headerClass = 'calendar__header';
     daysContainerClass = 'calendar__days';
@@ -48,10 +53,15 @@ class Calendar {
 
     outsideClickListener = null;
 
-    constructor(targetElement) {
-        if (!targetElement)
+    constructor(args) {
+        const { element, position } = args;
+        if (!element)
             throw new Error('Calendar: targetElement is required');
-        this.targetElement = targetElement;
+        this.targetElement = element;
+        if (position) {
+            this.position = position;
+            console.log(position);
+        }
         this.targetElement.parentElement.style.position = 'relative';
         this.selectedMonth = this.currentMonth;
         this.selectedYear = this.currentYear;
@@ -88,12 +98,21 @@ class Calendar {
         return this;
     }
 
-    calculatePosition(targetElement) {
+    calculateRightPosition(targetElement) {
         const { right, top } = targetElement.getBoundingClientRect();
         const { top: parentTop, left: parentLeft } = targetElement.parentElement.getBoundingClientRect();
         return {
             top: (top - parentTop) + 'px',
-            left: (right - parentLeft + this.padding) + 'px',
+            left: (right - parentLeft + this.rightPadding) + 'px',
+        };
+    }
+
+    calculateBehindPosition(targetElement) {
+        const { bottom, left } = targetElement.getBoundingClientRect();
+        const { top: parentTop, left: parentLeft } = targetElement.parentElement.getBoundingClientRect();
+        return {
+            top: (bottom - parentTop + this.bottomPadding) + 'px',
+            left: (left - parentLeft) + 'px',
         };
     }
 
@@ -140,7 +159,9 @@ class Calendar {
 
     createCalendar() {
         this.calendar = document.createElement('div');
-        const { top, left } = this.calculatePosition(this.targetElement);
+        const { top, left } = this.position === 'right'
+            ? this.calculateRightPosition(this.targetElement)
+            : this.calculateBehindPosition(this.targetElement);
         this.calendar.style.top = top;
         this.calendar.style.left = left;
         this.calendar.className = this.calendarClass;
@@ -304,10 +325,11 @@ class CalendarManager {
     checkAndInitCalendars() {
         const calendars = document.querySelectorAll('input[use-calendar="true"]');
         for (const calendar of calendars) {
-            if (!calendar.classList.contains('initialized')) {
-                new Calendar(calendar);
-                calendar.classList.add('initialized');
-            }
+            if (calendar.classList.contains('initialized'))
+                continue;
+            const position = calendar.getAttribute('calendar-position') || undefined;
+            new Calendar({ element: calendar, position });
+            calendar.classList.add('initialized');
         }
     }
 }

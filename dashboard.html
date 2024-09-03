@@ -14,7 +14,7 @@
 <body>
 <div class="dashboard">
     <div class="left-part">
-        <div class="new-task">
+        <div class="new-task desktop">
             <div class="new-task__header">New task</div>
             <div class="new-task__slogan">Design tomorrow now</div>
             <div class="new-task__form">
@@ -376,56 +376,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="chart mobile">
-                <div class="chart__header">
-                    Daily Average
-                </div>
-                <div class="chart__options">
-                    <a class="chart__active-option">Percentage</a>
-                    <a>Points</a>
-                </div>
-                <div
-                    append-chart="true"
-                    chart-width="400"
-                    chart-height="130"
-                    chart-labels='"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"'
-                    chart-data-numbers='10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17'
-                    class="chart__content" id="daily-chart"></div>
-            </div>
-            <div class="chart mobile">
-                <div class="chart__header">
-                    Weekly Average
-                </div>
-                <div class="chart__options">
-                    <a class="chart__active-option">Percentage</a>
-                    <a>Points</a>
-                </div>
-                <div
-                    append-chart="true"
-                    chart-width="400"
-                    chart-height="130"
-                    chart-labels='"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"'
-                    chart-data-numbers='10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17'
-                    class="chart__content" id="weekly-chart"></div>
-            </div>
-            <div class="chart mobile">
-                <div class="chart__header">
-                    Monthly Average
-                </div>
-                <div class="chart__options">
-                    <a class="chart__active-option">Percentage</a>
-                    <a>Points</a>
-                </div>
-                <div
-                    append-chart="true"
-                    chart-width="400"
-                    chart-height="130"
-                    chart-labels='"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sept", "Oct", "Nov", "Dec"'
-                    chart-data-numbers='10, 30, 28, 17, 10, 30, 18, 17, 10, 30, 48, 17'
-                    class="chart__content" id="monthly-chart">
-                </div>
-            </div>
         </div>
 
     </div>
@@ -494,7 +444,8 @@
                 </div>
                 <div class="new-task__input-label">Assign date</div>
                 <div class="new-task__input-container" style="position: relative">
-                    <input type="text" use-calendar="true" id="date" class="input-text" value="01/11/2025"
+                    <input type="text" use-calendar="true" calendar-position="behind" id="date" class="input-text"
+                           value="01/11/2025"
                            placeholder="Date" readonly>
                 </div>
                 <div class="new-task__input-label">Repeat every:</div>

@@ -26,9 +26,6 @@
     .desktop {
         display: none;
     }
-    .left-part {
-        display: none;
-    }
     .mobile {
         display: block;
     }
@@ -36,9 +33,24 @@
         display: flex;
         justify-content: right;
     }
+
+    .left-part {
+        max-width: 100%;
+    }
+    .dashboard {
+        flex-flow: column-reverse;
+    }
+    .charts {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 15px;
+    }
 }
 
 @media (max-width: 950px) {
+    .charts,
     .content-two-columns {
         display: flex;
         flex-direction: column;
@@ -51,6 +63,9 @@
     }
     .category-creation {
         min-width: auto;
+    }
+    .chart__header, .chart__options {
+        text-align: center;
     }
 }
 
