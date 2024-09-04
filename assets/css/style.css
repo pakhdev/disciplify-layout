@@ -128,7 +128,8 @@ body {
 .input-multi-select__add-button--active {
     border-radius: 5px 5px 0 0;
 }
-.input-option-selector, .input-option-selector--multi {
+.input-option-selector,
+.input-option-selector--multi {
     color: var(--dark-blue);
     background-color: var(--light-gray);
     border-radius: 5px;
@@ -146,6 +147,7 @@ body {
     border: 0;
     line-height: 30px;
     height: 30px;
+    user-select: none;
     padding: 1px 15px 0;
 }
 .input-option-selector__option--multi {
@@ -205,7 +207,7 @@ body {
     border: 1px solid var(--bright-blue);
     background-color: white;
     border-radius: 10px;
-    padding: 20px 10px 10px;
+    padding: 20px 20px 10px;
     max-width: 500px;
     margin: 20px 25px;
 }
@@ -305,41 +307,45 @@ body {
     padding-top: 10px;
 }
 
-.new-task__header, .new-task__slogan {
+.task-editor__header, .task-editor__slogan {
     font-family: 'Orbitron', sans-serif;
     text-transform: uppercase;
     user-select: none;
 }
-.new-task__header {
+.task-editor__header {
     font-size: 40px;
     color: var(--midnight-blue);
 }
-.new-task__slogan {
+.task-editor__slogan {
     font-size: 12px;
     color: var(--dark-blue);
 }
-.new-task__form {
+.task-editor__form {
     margin-top: 20px;
     font-size: 10px;
     text-transform: uppercase;
     color: var(--dark-blue);
 }
-.new-task__two-columns {
+.task-editor__two-columns {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 7px;
 }
-.new-task__two-columns-inverted {
+.task-editor__two-columns-inverted {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 10px;
     margin-bottom: 10px;
 }
-.new-task__input-label {
+.task-editor__input-label {
     font-size: 10px;
     color: var(--dark-blue);
     line-height: 30px;
     padding-top: 2px;
+}
+.task-editor__dismiss {
+    margin-top: 10px;
+    background-color: var(--bright-blue);
 }
 
 .charts {
