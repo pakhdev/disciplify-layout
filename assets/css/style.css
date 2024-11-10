@@ -56,6 +56,9 @@ body {
     line-height: 30px;
     cursor: pointer;
     padding: 2px 10px 0;
+    &:hover {
+        filter: brightness(1.05);
+    }
 }
 .input-text, .input-number {
     color: var(--dark-blue);
